@@ -72,8 +72,8 @@ plt.figure(figsize=(8, 6))
 sns.heatmap(cm, annot=True, fmt="d", cmap="Blues",
             xticklabels=label_encoder.classes_,
             yticklabels=label_encoder.classes_)
-plt.title("Matriz de Confusión - XGBoost con Variables Derivadas")
-plt.xlabel("Predicción")
+plt.title("Confusion Matrix - XGBoost")
+plt.xlabel("Prediction")
 plt.ylabel("Real")
 plt.tight_layout()
 plt.show()

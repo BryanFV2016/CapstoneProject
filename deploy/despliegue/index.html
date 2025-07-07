@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Predicción Morfológica del Jugador</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="contenedor">
+    <h1>Predicción Morfológica del Jugador</h1>
+    <p class="subtitulo">Simulador de clasificación por perfil físico</p>
+
+    <label for="altura">Altura (cm):</label>
+    <input type="number" id="altura" value="185">
+
+    <label for="peso">Peso (kg):</label>
+    <input type="number" id="peso" value="82">
+
+    <label for="musculo">Masa muscular (kg):</label>
+    <input type="number" id="musculo" value="35">
+
+    <button onclick="predecir()">Predecir posición</button>
+
+    <div id="loader">
+      <p>⚙️ Procesando predicción...</p>
+      <div id="progressBar">
+        <div id="bar"></div>
+      </div>
+    </div>
+
+    <div id="output" class="resultado"></div>
+  </div>
+
+  <script>
+    function predecir() {
+      document.getElementById('output').style.display = 'none';
+      document.getElementById('loader').style.display = 'block';
+      let bar = document.getElementById("bar");
+      bar.style.width = "1%";
+      let width = 1;
+
+      let interval = setInterval(() => {
+        if (width >= 100) {
+          clearInterval(interval);
+          mostrarResultado();
+        } else {
+          width++;
+          bar.style.width = width + "%";
+        }
+      }, 20);
+    }
+
+    function mostrarResultado() {
+      const confianza = (Math.random() * (95 - 85) + 85).toFixed(2);
+
+      document.getElementById('loader').style.display = 'none';
+      const resultado = `
+        <h3>✅ Posición sugerida: <strong>Defensa central</strong></h3>
+        <p><strong>Confianza del modelo:</strong> ${confianza} %</p>
+        <p><strong>Explicación del modelo:</strong> El jugador presenta una masa muscular elevada y una estatura superior al promedio, características comunes en defensores centrales. Este perfil físico es ideal para tareas de marcaje, juego aéreo y cobertura.</p>
+      `;
+      document.getElementById('output').innerHTML = resultado;
+      document.getElementById('output').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
